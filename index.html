@@ -13,13 +13,16 @@
     <div id="root">
         
         <div class="search-film">
-            <input type="text" placeholder="Inserisci titolo film">
-            <button>Vai</button>
+            <input v-model="userSearch" type="text" placeholder="Inserisci titolo film">
+            <button @click="search">Vai</button>
         </div>
     
         <div class="film-container">
             <ul v-for="movie in movies" class="list-film">
-                <li>{{ movie.title }}</li>
+                <li> Titolo: {{ movie.title }}</li>
+                <li> Titolo Originale: {{movie.original_title}}</li>
+                <li> Lingua: {{movie.original_language}}</li>
+                <li> Voto: {{movie.vote_average}}</li>
             </ul>
         </div>
 
