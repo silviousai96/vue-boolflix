@@ -3,12 +3,13 @@ var app = new Vue(
         el: '#root',
         data: {
             movies: [],
+            series: [],
             userSearch: '',
         },
         methods: {
             search() {
-                if(this.userSearch.length > 0) {
-                    axios
+                //chiamata film
+                axios
                 .get('https://api.themoviedb.org/3/search/movie', {
                     params: {
                         api_key: '7f4db2e84c6497f875534433bb139d8d',
@@ -20,11 +21,29 @@ var app = new Vue(
                     const result = response.data.results;
                     console.log(result);
                     this.movies = result;
+                }),
+                //chiamata serie tv
+                axios
+                .get('https://api.themoviedb.org/3/search/tv', {
+                    params: {
+                        api_key: '7f4db2e84c6497f875534433bb139d8d',
+                        query: this.userSearch,
+                    }
                 })
-                this.userSearch = '';
-                }
                 
+                .then((response) => {
+                    const result = response.data.results;
+                    console.log(result);
+                    this.series = result;
+                })
+                //ripulisco la searchbar
+                this.userSearch = '';
             }
+
+
+                
+
+                
         },
         mounted() {
         }
