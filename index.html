@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
@@ -20,7 +21,7 @@
     
         <div class="film-container">
             <ul v-for="movie in movies" class="list-film">
-                <li>Copertina: <img :src=" 'https://image.tmdb.org/t/p/w92' + movie.poster_path " alt=""></li>
+                <li> Copertina: <img :src=" 'https://image.tmdb.org/t/p/w92' + movie.poster_path " alt=""></li>
                 <li> Titolo: {{ movie.title }}</li>
                 <li> Titolo Originale: {{movie.original_title}}</li>
                 <li> Lingua: 
@@ -28,13 +29,13 @@
                     <img v-else-if="movie.original_language == 'en'" src="img/gb.png" alt="">
                     <img v-else src="img/aq.png" alt="">
                 </li>
-                <li> Voto: {{movie.vote_average}}</li>
+                <li> Voto: <i v-for="vote in roundedVote(movie.vote_average)" class="fas fa-star"></i>  </li>   
             </ul>
         </div>
 
         <div class="series-container">
             <ul v-for="tv in series" class="list-series">
-                <li>Copertina: <img :src=" 'https://image.tmdb.org/t/p/w92' + movie.poster_path " alt=""></li>
+                <li> Copertina: <img :src=" 'https://image.tmdb.org/t/p/w92' + tv.poster_path " alt=""></li>
                 <li> Titolo: {{ tv.name }}</li>
                 <li> Titolo Originale: {{tv.original_name}}</li>
                 <li> Lingua: 
@@ -42,7 +43,7 @@
                     <img v-else-if="tv.original_language == 'en'" src="img/gb.png" alt="">
                     <img v-else src="img/aq.png" alt="">
                 </li>
-                <li> Voto: {{tv.vote_average}}</li>
+                <li> Voto: <i v-for="vote in roundedVote(tv.vote_average)" class="fas fa-star"></i>  </li> 
             </ul>
         </div>
 
