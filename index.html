@@ -7,52 +7,90 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
+    <link rel="stylesheet" href="css/style.css">
     <title>BoolFlix</title>
 </head>
 <body>
+    <!-- inizio wrapper  -->
+    <div id="root" class="wrapper">
+
+        <!-- inizio header -->
+        <header>
+            <!-- logo -->
+            <div class="logo">
+                <h1>BoolFlix</h1>
+            </div>
+
+            <!-- barra ricerca film e button -->
+            <div class="search-film">
+                <input  v-model="userSearch" type="text" @keyup.enter="search" placeholder="Inserisci titolo film o serie tv">
+                <button v-if="this.userSearch.length > 0"  @click="search">Vai</button>
+            </div>           
+        </header>
+        <!-- fine header -->
+
+        <!-- inizio main -->
+        <main>
+            <!-- inizio film container -->
+            <div class="film-container">
+                <!-- singola carta per i film  con dentro la copertina del film e l'overlay con le info quando fai hover  -->
+                <div v-for="movie in movies" class="card">
+                    
+                    <img class="img-cover" :src=" 'https://image.tmdb.org/t/p/w342' + movie.poster_path " alt="">
+
+                    <div class="overlay">
+
+                        <div class="info">
+                            <div> <span>Titolo:</span>  {{ movie.title }}</div>
+                            <div> <span>Titolo Originale:</span>  {{movie.original_title}}</div>
+                            <div> <span>Lingua:</span>  
+                                <img class="flag" v-if="movie.original_language == 'it'" src="img/it.png" alt="">
+                                <img class="flag" v-else-if="movie.original_language == 'en'" src="img/gb.png" alt="">
+                                <img class="flag" v-else src="img/aq.png" alt="">
+                            </div>
+                            <div> <span>Voto:</span>  <i v-for="vote in roundedVote(movie.vote_average)" class="fas fa-star"></i>  </div>    
+                            <div> <span>Trama:</span>  {{ movie.overview }}</div>                     
+                        </div>
+                        
+                    </div>
+
+ 
+                </div>
+            </div>
+            <!-- fine film container -->
+
+            <!-- inizio serie tv container -->
+            <div class="series-container">
+                <!-- singola carta per le serie tv  con dentro la copertina del film e l'overlay con le info quando fai hover  -->                
+                <div v-for="tv in series" class="card">
+                    
+                    <img class="img-cover" :src=" 'https://image.tmdb.org/t/p/w342' + tv.poster_path " alt="">
+                    
+                    <div class="overlay">
+
+                        <div class="info">
+                            <div> <span>Titolo:</span>  {{ tv.name }}</div>
+                            <div> <span>Titolo Originale:</span>  {{tv.original_name}}</div>
+                            <div> <span>Lingua:</span>  
+                                <img class="flag" v-if="tv.original_language == 'it'" src="img/it.png" alt="">
+                                <img class="flag" v-else-if="tv.original_language == 'en'" src="img/gb.png" alt="">
+                                <img class="flag" v-else src="img/aq.png" alt="">
+                            </div>
+                            <div> <span>Voto:</span>  <i v-for="vote in roundedVote(tv.vote_average)" class="fas fa-star"></i>  </div> 
+                            <div> <span>Trama:</span>  {{ tv.overview }}</div>                     
+                        </div>
     
-    <div id="root">
-        
-        <div class="search-film">
-            <input  v-model="userSearch" type="text" @keyup.enter="search" placeholder="Inserisci titolo film o serie tv">
-            <button v-if="this.userSearch.length > 0"  @click="search">Vai</button>
-        </div>
-    
-        <div class="film-container">
-            <ul v-for="movie in movies" class="list-film">
-                <li> Copertina: <img :src=" 'https://image.tmdb.org/t/p/w92' + movie.poster_path " alt=""></li>
-                <li> Titolo: {{ movie.title }}</li>
-                <li> Titolo Originale: {{movie.original_title}}</li>
-                <li> Lingua: 
-                    <img v-if="movie.original_language == 'it'" src="img/it.png" alt="">
-                    <img v-else-if="movie.original_language == 'en'" src="img/gb.png" alt="">
-                    <img v-else src="img/aq.png" alt="">
-                </li>
-                <li> Voto: <i v-for="vote in roundedVote(movie.vote_average)" class="fas fa-star"></i>  </li>   
-            </ul>
-        </div>
-
-        <div class="series-container">
-            <ul v-for="tv in series" class="list-series">
-                <li> Copertina: <img :src=" 'https://image.tmdb.org/t/p/w92' + tv.poster_path " alt=""></li>
-                <li> Titolo: {{ tv.name }}</li>
-                <li> Titolo Originale: {{tv.original_name}}</li>
-                <li> Lingua: 
-                    <img v-if="tv.original_language == 'it'" src="img/it.png" alt="">
-                    <img v-else-if="tv.original_language == 'en'" src="img/gb.png" alt="">
-                    <img v-else src="img/aq.png" alt="">
-                </li>
-                <li> Voto: <i v-for="vote in roundedVote(tv.vote_average)" class="fas fa-star"></i>  </li> 
-            </ul>
-        </div>
-
-        
-
+                    </div>
+                </div>
+            </div>
+            <!-- fine serie tv container -->
+        </main>
+        <!-- fine main -->
+                
     </div>
+    <!-- fine wrapper -->
     
-    
-
+    <!-- JS -->
     <script src="js/script.js"></script>
 </body>
 </html>

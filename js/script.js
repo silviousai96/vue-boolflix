@@ -38,12 +38,13 @@ var app = new Vue(
                 })
                 //ripulisco la searchbar
                 this.userSearch = '';
+            },
+
+            //funzione per arrotondare il voto per eccesso del film/serieTv
+            roundedVote(n) {
+                return Math.ceil( n / 2);
             }
-
-
-                
-
-                
+                                
         },
         mounted() {
         }
